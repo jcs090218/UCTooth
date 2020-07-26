@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCTooth_Windows", "UCTooth_Windows\UCTooth_Windows.csproj", "{55BA1A51-3054-44AB-B01B-4818DE29DFED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55BA1A51-3054-44AB-B01B-4818DE29DFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55BA1A51-3054-44AB-B01B-4818DE29DFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55BA1A51-3054-44AB-B01B-4818DE29DFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55BA1A51-3054-44AB-B01B-4818DE29DFED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A02453E1-5A6A-4AD4-8185-F755A19327EE}
+	EndGlobalSection
+EndGlobal
