@@ -6,3 +6,7 @@
 # UCTooth
 
 Unity cross-platform bluetooth plugin; implemented to each native platform code.
+
+## Dependencies
+
+* [UnityPackageExporter](https://github.com/jcs090218/UnityPackageExporter)

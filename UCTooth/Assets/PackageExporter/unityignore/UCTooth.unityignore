@@ -1,0 +1,15 @@
+# 
+# Thank you for using 'Unity Package Exporter'. This is the generated 
+# unityignore file.
+# 
+# Package Name: UCTooth
+# Version: 0.1.0
+# Creation Date: 2020-07-26 17:27:36 
+# 
+# Package Link: https://github.com/jcs090218/UnityPackageExporter
+# Author: Shen, Jen-Chieh
+# Email: jcs090218@gmail.com
+# 
+
+# Ignore this plugin itself.
+UnityPackageExporter
