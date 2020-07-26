@@ -1,12 +1,45 @@
-# ignore the these directories
+# ignore the those directory
 /.git
 /.vs
 /.vscode
 /Temp
 /Build
 /Library
+/Logs
 /obj
+/Tutorials
 /Publish
+
+# 3rd party plugins
+/Assets/GaussianBlur
+/Assets/GaussianBlur.*
+/Assets/Infinity Code
+/Assets/Infinity Code.*
+/Assets/LogViewer
+/Assets/LogViewer.*
+/Assets/SpriteMask
+/Assets/SpriteMask.*
+/Assets/StandaloneFileBrowser
+/Assets/StandaloneFileBrowser.*
+/Assets/TextMesh Pro
+/Assets/TextMesh Pro.*
+/Assets/UI-Polygon
+/Assets/UI-Polygon.*
+
+# ignore build info
+/Assets/StreamingAssets/build_info
+/Assets/StreamingAssets/build_info.*
+
+# ignore plugin for Unity built-in functionalities.
+/Assets/Plugins
+/Assets/Plugins.meta
+
+# ignore webcam images
+/Assets/JCS_GameData/WebcamShot
+/Assets/JCS_GameData/WebcamShot.*
+
+# don't include the video.
+/Video
 
 # ignore the following extension file
 *.svd
