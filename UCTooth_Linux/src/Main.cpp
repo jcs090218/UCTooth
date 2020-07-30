@@ -7,8 +7,6 @@
  *                   Copyright © 2020 by Shen, Jen-Chieh $
  */
 
-#include "Main.h"
-
 /**
  * @func main
  * @brief Program entry point.

@@ -18,9 +18,9 @@
 #define UCTOOTH_C_END }
 
 #ifdef UCTOOTH_EXPORT
-#define UCTOOTH_API __declspec(dllexport)
+#define UCTOOTH_API __attribute__((visibility("default")))
 #else
-#define UCTOOTH_API __declspec(dllimport)
+#define UCTOOTH_API
 #endif
 
 UCTOOTH_C_BEG

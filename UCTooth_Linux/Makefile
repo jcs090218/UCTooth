@@ -64,7 +64,7 @@ ASM	 = nasm
 # disassembler commands
 DASM = ndisasm
 # compiler type
-CC	 = gcc
+CC	 = g++
 # linker commands
 LD	 = ld
 # compile lib file commands
