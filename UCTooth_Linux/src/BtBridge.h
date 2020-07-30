@@ -9,6 +9,30 @@
  */
 #define __BTBRIDGE_H__
 
+#define UCTOOTH_EXPORT  // Exporting.
 
+#define UCTOOTH_NS_BEG namespace UCTooth {
+#define UCTOOTH_NS_END }
+
+#define UCTOOTH_C_BEG extern "C" {
+#define UCTOOTH_C_END }
+
+#ifdef UCTOOTH_EXPORT
+#define UCTOOTH_API __declspec(dllexport)
+#else
+#define UCTOOTH_API __declspec(dllimport)
+#endif
+
+UCTOOTH_C_BEG
+UCTOOTH_NS_BEG
+
+UCTOOTH_API int Connect(long btAddr);
+UCTOOTH_API void Close();
+
+UCTOOTH_API int Send(char msg[]);
+UCTOOTH_API void Recv(char msg[]);
+
+UCTOOTH_NS_END
+UCTOOTH_C_END
 
 #endif /* __BTBRIDGE_H__ */
