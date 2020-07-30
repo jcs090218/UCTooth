@@ -1,3 +1,0 @@
-include ':bluetooth'
-include ':app'
-rootProject.name = "UCTooth_Android"
