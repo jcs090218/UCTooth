@@ -8,5 +8,6 @@
   <ItemGroup>
     <ClInclude Include="BtBridge.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
 </Project>

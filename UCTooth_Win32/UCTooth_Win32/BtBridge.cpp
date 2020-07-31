@@ -18,7 +18,8 @@ SOCKET btSocket = -1;
 
 #define BUF_LEN 512
 
-char* retBuffer = nullptr;
+char* g_pRetBuffer = nullptr;
+int gRecvLen = 0;
 
 /* if we fail, call ourself to find out why and return that error */
 TCHAR* GetLastErrorMessage(DWORD last_error)
@@ -31,17 +32,17 @@ TCHAR* GetLastErrorMessage(DWORD last_error)
 
 int Connect(BTH_ADDR btAddr)
 {
-	WSADATA wsd;
+	int error = 0;
 
-	if (WSAStartup(MAKEWORD(2, 2), &wsd) != 0)
+	WSADATA wsd;
+	error = WSAStartup(MAKEWORD(2, 2), &wsd);
+	if (error != 0)
 	{
-		printf("[ERROR] Unable to load Winsock! Error code is %d\n", WSAGetLastError());
-		return 1;
+		Debug::Log("[ERROR] Unable to load Winsock", Color::Red);
+		return error;
 	}
 
 	SOCKADDR_BTH sockAddr = { 0 };
-
-	int error = 0;
 
 	//u_long iMode = 1;  // 0 = blocking, 1 = non-blocking
 
@@ -56,7 +57,7 @@ int Connect(BTH_ADDR btAddr)
 	error = connect(btSocket, (SOCKADDR*)&sockAddr, sizeof(sockAddr));
 	if (error == SOCKET_ERROR)
 	{
-		printf("[ERROR] Network exception, when connect: %d\n", error);
+		Debug::Log("[ERROR] Network exception, when connect", Color::Red);
 		return error;
 	}
 
@@ -78,17 +79,25 @@ int Send(char msg[])
 
 char* Recv()
 {
-	char buffer[BUF_LEN];
-	int bytesRead = recv(btSocket, buffer, BUF_LEN, 0);
 	Cleanup();
-	retBuffer = (char*)malloc(bytesRead * sizeof(char));
-	memcpy(retBuffer, buffer, bytesRead);
-	return retBuffer;
+
+	char buffer[BUF_LEN];
+	gRecvLen = recv(btSocket, buffer, BUF_LEN, 0);
+
+	g_pRetBuffer = (char*)malloc(gRecvLen * sizeof(char));
+	memcpy(g_pRetBuffer, buffer, gRecvLen);
+	return g_pRetBuffer;
+}
+
+int RecvLen()
+{
+	return (g_pRetBuffer) ? gRecvLen : 0;
 }
 
 void Cleanup()
 {
-	if (retBuffer) free(retBuffer);
+	SafeFree(g_pRetBuffer);
+	gRecvLen = 0;
 }
 
 BOOL __stdcall callback(ULONG uAttribId, LPBYTE pValueStream, ULONG cbStreamSize, LPVOID pvParam)

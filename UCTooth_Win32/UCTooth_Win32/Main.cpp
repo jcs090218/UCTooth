@@ -8,11 +8,7 @@
  */
 #include "./BtBridge.h"
 
- /**
-  * @func main
-  * @brief Program entry point.
-  */
-int main()
+static void Test_Connect()
 {
 	unsigned __int64 btAddr = 0xB827EB651B47;
 
@@ -33,6 +29,21 @@ int main()
 
 		free(data);*/
 	}
+}
+
+static void Test_SDP()
+{
+	UCTooth::Test();
+}
+
+ /**
+  * @func main
+  * @brief Program entry point.
+  */
+int main()
+{
+	//Test_Connect();
+	Test_SDP();
 
 	return 0;
 }
