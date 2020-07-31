@@ -21,21 +21,26 @@ namespace UCTooth
     {
         /* Variables */
 
+        private const string PLUGIN_NAME = "UCTooth_Win32";
+
         /* Setter & Getter */
 
         /* Functions */
 
-        [DllImport("UCTooth_Win32")]
+        [DllImport(PLUGIN_NAME, EntryPoint = "Connect")]
         public static extern int Connect(long btAddr);
 
-        [DllImport("UCTooth_Win32")]
+        [DllImport(PLUGIN_NAME, EntryPoint = "Close")]
         public static extern void Close();
 
-        [DllImport("UCTooth_Win32")]
+        [DllImport(PLUGIN_NAME, EntryPoint = "Send")]
         public static extern int Send(byte[] msg);
 
-        [DllImport("UCTooth_Win32")]
-        public static extern void Recv(byte[] msg);
+        [DllImport(PLUGIN_NAME, EntryPoint = "Recv")]
+        public static extern System.IntPtr Recv();
+
+        [DllImport(PLUGIN_NAME, EntryPoint = "Cleanup")]
+        public static extern void Cleanup();
     }
 }
 #endif

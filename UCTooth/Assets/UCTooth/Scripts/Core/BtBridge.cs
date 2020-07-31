@@ -68,10 +68,10 @@ namespace UCTooth
 #endif
         }
 
-        public static void Recv(byte[] msg)
+        public static System.IntPtr Recv()
         {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-            BtBridge_Win.Recv(msg);
+            return BtBridge_Win.Recv();
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 
 #elif UNITY_EDITOR_LINUX || UNITY_STANDALONE_LINUX
@@ -81,6 +81,11 @@ namespace UCTooth
 #elif UNITY_IOS
 
 #endif
+        }
+
+        public static void Cleanup()
+        {
+            BtBridge_Win.Cleanup();
         }
     }
 }
