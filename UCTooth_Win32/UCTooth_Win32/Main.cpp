@@ -8,19 +8,31 @@
  */
 #include "./BtBridge.h"
 
-/**
- * @func main
- * @brief Program entry point.
- */
-void main()
+ /**
+  * @func main
+  * @brief Program entry point.
+  */
+int main()
 {
-    long btAddr = 0xB827EB651B47;
-    UCTooth::Connect(btAddr);
+	unsigned __int64 btAddr = 0xB827EB651B47;
 
-    char msg[] = "Hello World";
-    UCTooth::Send(msg);
+	char sendData[] = "Hello World Hello World Hello World";
 
-    UCTooth::Recv(msg);
+	if (UCTooth::Connect(btAddr) == 0)
+	{
+		int bytesSent = UCTooth::Send(sendData);
 
-    printf("Data is: %s\n", msg);
+		printf("bytesSent: %d\n", bytesSent);
+
+		/*char* data = UCTooth::Recv();
+
+		for (int index = 0; index < 10; ++index)
+		{
+			printf("data: %04x\n", *(data + index));
+		}
+
+		free(data);*/
+	}
+
+	return 0;
 }

@@ -10,11 +10,17 @@
 #define __BTBRIDGE_H__
 
 #include <winsock2.h>
-#include <ws2bth.h>
-
+#include <Ws2bth.h>
+#include <bthdef.h>
+#include <BluetoothAPIs.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <conio.h>
+#include <fcntl.h>
 
 #pragma comment(lib, "WS2_32.lib")
+#pragma comment(lib, "irprops.lib")
 
 #define UCTOOTH_EXPORT  // Exporting.
 
@@ -37,7 +43,9 @@ UCTOOTH_API int Connect(BTH_ADDR btAddr);
 UCTOOTH_API void Close();
 
 UCTOOTH_API int Send(char msg[]);
-UCTOOTH_API void Recv(char msg[]);
+UCTOOTH_API char* Recv();
+
+UCTOOTH_API void Cleanup();
 
 UCTOOTH_NS_END
 UCTOOTH_C_END
