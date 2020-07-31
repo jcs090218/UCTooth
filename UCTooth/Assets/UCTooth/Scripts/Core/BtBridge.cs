@@ -85,7 +85,32 @@ namespace UCTooth
 
         public static void Cleanup()
         {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
             BtBridge_Win.Cleanup();
+#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+
+#elif UNITY_EDITOR_LINUX || UNITY_STANDALONE_LINUX
+
+#elif UNITY_ANDROID
+
+#elif UNITY_IOS
+
+#endif
+        }
+
+        public static int RecvLen()
+        {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            return BtBridge_Win.RecvLen();
+#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+
+#elif UNITY_EDITOR_LINUX || UNITY_STANDALONE_LINUX
+
+#elif UNITY_ANDROID
+
+#elif UNITY_IOS
+
+#endif
         }
     }
 }

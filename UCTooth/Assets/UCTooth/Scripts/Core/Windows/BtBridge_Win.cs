@@ -41,6 +41,9 @@ namespace UCTooth
 
         [DllImport(PLUGIN_NAME, EntryPoint = "Cleanup")]
         public static extern void Cleanup();
+
+        [DllImport(PLUGIN_NAME, EntryPoint = "RecvLen")]
+        public static extern int RecvLen();
     }
 }
 #endif

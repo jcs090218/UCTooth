@@ -36,24 +36,27 @@ public class Test_General
     {
         BtBridge.Connect(0xB827EB651B47);
 
-        string author = "Mahesh Chand";
-        byte[] sendData = Encoding.ASCII.GetBytes(author);
+        /* Send */
+        {
+            string author = "Mahesh Chand";
+            byte[] sendData = Encoding.ASCII.GetBytes(author);
+            int bytesSend = BtBridge.Send(sendData);
+        }
 
-        int bytesSend = BtBridge.Send(sendData);
+        /* Receive */
+        {
+            IntPtr data = BtBridge.Recv();
 
-        IntPtr data = BtBridge.Recv();
+            int bytesRead = BtBridge.RecvLen();
+            byte[] trueData = new byte[bytesRead];
+            Marshal.Copy(data, trueData, 0, bytesRead);
 
-        byte[] trueData = new byte[8];
-        Marshal.Copy(data, trueData, 0, 8);
+            string hex = BitConverter.ToString(trueData);
 
-        string hex = BitConverter.ToString(trueData);
+            print("bytesRead: " + bytesRead);
+            print("Data: " + hex);
+        }
 
-        //print(bytesRead);
-        print(hex);
-
-        BtBridge.Cleanup();
-
-        //string result = System.Text.Encoding.UTF8.GetString(recvData);
-        //Debug.Log(result);
+        BtBridge.Close();
     }
 }
