@@ -30,7 +30,7 @@ TCHAR* GetLastErrorMessage(DWORD last_error)
 	return errmsg;
 }
 
-int Connect(BTH_ADDR btAddr)
+int Init()
 {
 	int error = 0;
 
@@ -42,12 +42,19 @@ int Connect(BTH_ADDR btAddr)
 		return error;
 	}
 
+	btSocket = socket(AF_BTH, SOCK_STREAM, BTHPROTO_RFCOMM);
+
+	return 0;
+}
+
+int Connect(BTH_ADDR btAddr)
+{
+	int error = 0;
+
+	Init();
+
 	SOCKADDR_BTH sockAddr = { 0 };
 
-	//u_long iMode = 1;  // 0 = blocking, 1 = non-blocking
-
-	btSocket = socket(AF_BTH, SOCK_STREAM, BTHPROTO_RFCOMM);
-	//ioctlsocket(btSocket, FIOASYNC, &iMode);
 	memset(&sockAddr, 0, sizeof(sockAddr));
 	sockAddr.addressFamily = AF_BTH;
 	sockAddr.serviceClassId = RFCOMM_PROTOCOL_UUID;
@@ -110,6 +117,8 @@ BOOL __stdcall callback(ULONG uAttribId, LPBYTE pValueStream, ULONG cbStreamSize
 
 void Test()
 {
+	Init();
+
 	WSAPROTOCOL_INFO protocolInfo;
 	int protocolInfoSize = sizeof(protocolInfo);
 
@@ -136,11 +145,12 @@ void Test()
 
 		if (result != 0)
 		{
-			wprintf(L"[WARNING] %d\n", bufferLength);
+			Debug::Log("[INFO] Detect a device with result of non-zero");
 			continue;
 		}
 
 		wprintf(L"%s\n", pResults->lpszServiceInstanceName);
+
 		CSADDR_INFO* pCSAddr = (CSADDR_INFO*)pResults->lpcsaBuffer;
 		BTH_DEVICE_INFO* pDeviceInfo = (BTH_DEVICE_INFO*)pResults->lpBlob;
 		WSAQUERYSET querySet2;
@@ -207,7 +217,10 @@ void Test()
 				}
 			}
 		}
+
+		result = WSALookupServiceEnd(hLookup2);
 	}
+	result = WSALookupServiceEnd(hLookup);
 
 
 	HANDLE hRadio;
@@ -215,22 +228,21 @@ void Test()
 	HBLUETOOTH_RADIO_FIND hFind = BluetoothFindFirstRadio(&btfrp, &hRadio);
 	if (NULL == hFind)
 	{
-		wprintf(L"Can't find \n");
+		Debug::Log("[INFO] Can't find any device");
+		BluetoothFindRadioClose(hFind);
 		return;
 	}
 
-	printf("hFind\n");
+	Debug::Log("[INFO] Found device");
 	do
 	{
-		//
-		//  TODO: Do something with the radio handle.
-		//
 		BLUETOOTH_RADIO_INFO radioInfo;
 		radioInfo.dwSize = sizeof(radioInfo);
 		if (ERROR_SUCCESS == BluetoothGetRadioInfo(hRadio, &radioInfo))
 		{
-			wprintf(L"Raido: %s\n", radioInfo.szName);
+			wprintf(L"[INFO] Raido: %s\n", radioInfo.szName);
 		}
+
 		BLUETOOTH_DEVICE_INFO_STRUCT deviceInfo;
 		deviceInfo.dwSize = sizeof(deviceInfo);
 		BLUETOOTH_DEVICE_SEARCH_PARAMS deviceSearchParams;
@@ -246,23 +258,26 @@ void Test()
 		{
 			do
 			{
-				wprintf(L"Device: %s\n", deviceInfo.szName);
+				wprintf(L"[INFO] Device: %s\n", deviceInfo.szName);
 				//BluetoothDisplayDeviceProperties(0, &deviceInfo);
 			} while (BluetoothFindNextDevice(hDeviceFind, &deviceInfo));
+
 			BluetoothFindDeviceClose(hDeviceFind);
 		}
 
 		if (BluetoothGetDeviceInfo(hRadio, &deviceInfo))
 		{
-			wprintf(L"+ Device: %s\n", deviceInfo.szName);
+			wprintf(L"[INFO] + Device: %s\n", deviceInfo.szName);
 			// BluetoothUpdateDeviceRecord - change name
 			// BluetoothRemoveDevice
 		}
+
 		GUID guidServices[10];
 		DWORD numServices = sizeof(guidServices);
 		DWORD result = BluetoothEnumerateInstalledServices(hRadio, &deviceInfo, &numServices, guidServices);
 		CloseHandle(hRadio);
 	} while (BluetoothFindNextRadio(hFind, &hRadio));
+
 	BluetoothFindRadioClose(hFind);
 }
 

@@ -16,66 +16,103 @@
 
 void Debug::Log(const char* message, Color color)
 {
-    if (callbackInstance != nullptr)
-        callbackInstance(message, (int)color, (int)strlen(message));
+#ifdef _WINDLL
+	if (callbackInstance != nullptr)
+		callbackInstance(message, (int)color, (int)strlen(message));
+#else
+	std::string msg(message);
+	msg.append("\n");
+	printf(msg.c_str());
+#endif
 }
 
 void Debug::Log(const std::string message, Color color)
 {
-    const char* tmsg = message.c_str();
-    if (callbackInstance != nullptr)
-        callbackInstance(tmsg, (int)color, (int)strlen(tmsg));
+	const char* tmsg = message.c_str();
+#ifdef _WINDLL
+	if (callbackInstance != nullptr)
+		callbackInstance(tmsg, (int)color, (int)strlen(tmsg));
+#else
+	std::string msg(message);
+	msg.append("\n");
+	printf(msg.c_str());
+#endif
 }
 
 void Debug::Log(const int message, Color color)
 {
-    std::stringstream ss;
-    ss << message;
-    send_log(ss, color);
+#ifdef _WINDLL
+	std::stringstream ss;
+	ss << message;
+	send_log(ss, color);
+#else
+	printf("%d\n", message);
+#endif
 }
 
 void Debug::Log(const char message, Color color)
 {
-    std::stringstream ss;
-    ss << message;
-    send_log(ss, color);
+#ifdef _WINDLL
+	std::stringstream ss;
+	ss << message;
+	send_log(ss, color);
+#else
+	printf("%c\n", message);
+#endif
 }
 
 void Debug::Log(const float message, Color color)
 {
-    std::stringstream ss;
-    ss << message;
-    send_log(ss, color);
+#ifdef _WINDLL
+	std::stringstream ss;
+	ss << message;
+	send_log(ss, color);
+#else
+	printf("%f\n", message);
+#endif
 }
 
 void Debug::Log(const double message, Color color)
 {
-    std::stringstream ss;
-    ss << message;
-    send_log(ss, color);
+#ifdef _WINDLL
+	std::stringstream ss;
+	ss << message;
+	send_log(ss, color);
+#else
+	printf("%f\n", message);
+#endif
 }
 
 void Debug::Log(const bool message, Color color)
 {
-    std::stringstream ss;
-    if (message)
-        ss << "true";
-    else
-        ss << "false";
-
-    send_log(ss, color);
+#ifdef _WINDLL
+	std::stringstream ss;
+	if (message)
+		ss << "true";
+	else
+		ss << "false";
+	send_log(ss, color);
+#else
+	printf("%s\n", message ? "true" : "false");
+#endif
 }
 
-void Debug::send_log(const std::stringstream &ss, const Color &color)
+void Debug::send_log(const std::stringstream& ss, const Color& color)
 {
-    const std::string tmp = ss.str();
-    const char* tmsg = tmp.c_str();
-    if (callbackInstance != nullptr)
-        callbackInstance(tmsg, (int)color, (int)strlen(tmsg));
+	const std::string tmp = ss.str();
+	const char* tmsg = tmp.c_str();
+#ifdef _WINDLL
+	if (callbackInstance != nullptr)
+		callbackInstance(tmsg, (int)color, (int)strlen(tmsg));
+#else
+	std::string msg(tmsg);
+	msg.append("\n");
+	printf(msg.c_str());
+#endif
 }
 
 // Create a callback delegate
 void RegisterDebugCallback(FuncCallBack cb)
 {
-    callbackInstance = cb;
+	callbackInstance = cb;
 }

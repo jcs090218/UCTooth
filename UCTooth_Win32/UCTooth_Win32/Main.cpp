@@ -34,6 +34,7 @@ static void Test_Connect()
 static void Test_SDP()
 {
 	UCTooth::Test();
+	UCTooth::Close();
 }
 
  /**
