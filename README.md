@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.com/jcs090218/UCTooth.svg?branch=master)](https://travis-ci.com/jcs090218/UCTooth)
-[![Release Tag](https://img.shields.io/github/tag/jcs090218/UCTooth.svg?label=release)](https://github.com/jcs090218/UCTooth/releases/latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/tag/jcs090218/UCTooth.svg?label=release&logo=github)](https://github.com/jcs090218/UCTooth/releases/latest)
 
 # UCTooth
 
